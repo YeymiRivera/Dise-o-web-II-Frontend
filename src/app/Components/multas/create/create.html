@@ -1,1 +1,47 @@
-<p>create works!</p>
+<div class="contenedor-multa">
+    <h2 class="titulo-multa">Registrar Nueva Multa</h2>
+    <form class="formulario-multa">
+        <div class="fila-multa">
+            <div class="campo-multa campo-prestamo">
+                <label for="prestamoId">Préstamo</label>
+                <select id="prestamoId" [(ngModel)]="nuevamulta.prestamoId" name="prestamoId">
+                    <option [ngValue]="null">
+      {{ cargandoPrestamos ? 'Cargando préstamos...' : '-- Seleccione --' }}
+    </option>
+
+    <option *ngFor="let prestamo of prestamos"
+            [ngValue]="prestamo.id">
+      Préstamo {{ prestamo.id }} - {{ prestamo.socio?.nombre }}
+    </option>
+                </select>
+            </div>
+            <div class="campo-multa campo-monto">
+                <label for="monto">Monto</label>
+                <input
+                    id="monto"
+                    type="number"
+                    step="0.01"
+                    [(ngModel)]="nuevamulta.monto"
+                    name="monto"
+                />
+            </div>
+            <div class="campo-multa campo-pago">
+                <div class="opcion-pago">
+                    <input
+                        id="pagoRealizado"
+                        [(ngModel)]="nuevamulta.pagoRealizado"
+                        name="pagoRealizado"
+                        type="checkbox"
+                    />
+                    <label for="pagoRealizado">Pago realizado</label>
+                </div>
+            </div>
+        </div>
+        <div class="botones-multa">
+            <a href="/multas" class="boton-volver">Volver</a>
+            <button type="submit" class="boton-guardar" (click)="postMulta()">
+                Guardar Registro
+            </button>
+        </div>
+    </form>
+</div>

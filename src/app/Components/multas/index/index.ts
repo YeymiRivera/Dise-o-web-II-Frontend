@@ -1,33 +1,41 @@
 import { Component, inject } from '@angular/core';
-import { appConfig } from '../../../app.config';
-import { api_config } from '../../../core/api_config';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Observable, catchError, of, tap } from 'rxjs';
+
+import { api_config } from '../../../core/api_config';
 import { Multa } from '../../../models/multa';
-import { AsyncPipe } from '@angular/common';
+import { Smultas } from '../../../services/smultas';
 
 @Component({
-  imports: [AsyncPipe],
-  selector: 'app-index',
-  styleUrl: './index.css',
+  selector: 'app-index-multas',
+  imports: [AsyncPipe, JsonPipe],
   templateUrl: './index.html',
+  styleUrl: './index.css',
 })
 export class Index {
-  private http=inject(HttpClient);
-  private url=api_config.baseurl;
-  getMultas():Observable<Multa[]>{
-    return this.http.get<Multa[]>(this.url)
-  }
-  multas=this.getMultas();
+  private http = inject(HttpClient);
+  private url =
+    api_config.baseurl + '/api/Multas/GetMultas';
+
+  cargando = true;
+  error = '';
+
+ getMultas(): Observable<Multa[]> {
+  return this.http.get<Multa[]>(this.url)}
+
+
+  multas = this.getMultas();
+
   crearMulta(): void {
-  alert('Preparado para crear una multa');
-}
+    alert('Preparado para crear una multa');
+  }
 
-editarMulta(id: number): void {
-  console.log('Preparado para editar la multa:', id);
-}
+  editarMulta(): void {
+    console.log('Preparado para editar la multa:', );
+  }
 
-eliminarMulta(id: number): void {
-  console.log('Preparado para eliminar la multa:', id);
-}
+  eliminarMulta(): void {
+    console.log('Preparado para eliminar la multa:', );
+  }
 }

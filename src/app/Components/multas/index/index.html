@@ -1,7 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="text-primary">Multas</h2>
-
     <button
       type="button"
       class="btn btn-primary"
@@ -9,7 +8,6 @@
       + Nueva Multa
     </button>
   </div>
-
   <div class="table-responsive">
     <table class="table table-striped shadow-sm">
       <thead class="table-dark">
@@ -35,14 +33,14 @@
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-primary me-2"
-                  (click)="editarMulta(multa.id)">
+                  (click)="editarMulta()">
                   Editar
                 </button>
 
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-danger"
-                  (click)="eliminarMulta(multa.id)">
+                  (click)="eliminarMulta()">
                   Eliminar
                 </button>
               </td>
