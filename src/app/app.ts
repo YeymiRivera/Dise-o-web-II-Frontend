@@ -1,12 +1,16 @@
+
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Index } from './Components/multas/index';
+import {
+  RouterOutlet,
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet, Index],
   selector: 'app-root',
-  styleUrl: './app.css',
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('Proyecto-Diseno-Web-2');
