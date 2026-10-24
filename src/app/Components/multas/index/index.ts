@@ -1,9 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Observable, catchError, of, tap } from 'rxjs';
-
-import { api_config } from '../../../core/api_config';
+import { Router } from '@angular/router';
 import { Multa } from '../../../models/multa';
 import { Smultas } from '../../../services/smultas';
 
@@ -15,24 +13,31 @@ import { Smultas } from '../../../services/smultas';
 })
 export class Index {
   private http = inject(HttpClient);
-  private url =
-    api_config.baseurl + '/api/Multas/GetMultas';
-
+  private servicemultas=inject(Smultas)
+  private cdr=inject(ChangeDetectorRef)
+    constructor(private router: Router) {}
   cargando = true;
   error = '';
-
- getMultas(): Observable<Multa[]> {
-  return this.http.get<Multa[]>(this.url)}
-
-
-  multas = this.getMultas();
-
-  crearMulta(): void {
-    alert('Preparado para crear una multa');
+  multas:Multa[]=[];
+ ngOnInit(): void {
+  this.servicemultas.getMultas().subscribe({
+    next: (datos) => {
+      this.multas = datos;
+      this.cdr.detectChanges();
+      
+    },
+    error: (error) => {
+      console.error('Error al cargar préstamos:', error);
+    }
+  });
   }
+ crearMulta(): void {
+  this.router.navigate(['/multas/create']);
+}
 
-  editarMulta(): void {
-    console.log('Preparado para editar la multa:', );
+  editarMulta(id:number|undefined): void {
+    if(id===undefined){console.log("Error"); return }
+    this.router.navigate(['/multas/editar', id] );
   }
 
   eliminarMulta(): void {
