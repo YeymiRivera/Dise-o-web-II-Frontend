@@ -7,7 +7,8 @@
         <div class="row">
             @if(prestamo;as prest){
             <div class="col-md-6 mb-3">
-                <label  class="form-label">Préstamo- {{prest.socio}} </label>
+                <label  class="form-label"> Préstamo: {{ prest.id }}
+      - Socio: {{ prest.socio?.nombre ?? 'Sin socio' }} </label>
                 <span  class="text-danger"></span>
             </div>}
             <div class="campo-multa campo-monto">
@@ -27,7 +28,7 @@
                 <div class="opcion-pago">
                     <input
                         id="pagoRealizado"
-                       
+                        [(ngModel)]="multa.pagoRealizado"
                         name="pagoRealizado"
                         type="checkbox"
                     />
@@ -35,8 +36,8 @@
                 </div>
         </div>
         <div class="d-flex justify-content-between">
-            <button (click)="Volver()" class="btn btn-secondary">Volver</button>
-            <button  class="btn btn-success">Guardar Cambios</button>
+            <button (click)="Volver()" type="button" class="btn btn-secondary">Volver</button>
+            <button (click)="putMultas()" class="btn btn-success">Guardar Cambios</button>
         </div>
     </form>}
 </div>

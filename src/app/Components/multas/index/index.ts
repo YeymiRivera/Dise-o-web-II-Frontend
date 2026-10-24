@@ -35,12 +35,37 @@ export class Index {
   this.router.navigate(['/multas/create']);
 }
 
-  editarMulta(id:number|undefined): void {
+  editarMulta(id:number|undefined,pagor:boolean|undefined): void {
     if(id===undefined){console.log("Error"); return }
+    if(pagor===true){alert("Esta multa ya fue pagada"); return}
     this.router.navigate(['/multas/editar', id] );
   }
 
-  eliminarMulta(): void {
-    console.log('Preparado para eliminar la multa:', );
+ eliminarMulta(id: number | undefined): void {
+  if (id === undefined) {
+    alert('El ID del préstamo no está definido');
+    return;
   }
+
+  this.servicemultas.deleteMultas(id).subscribe({
+    next: () => {
+      alert('Multa eliminada correctamente');
+
+      // Consultar las multas después de eliminar
+      this.servicemultas.getMultas().subscribe({
+        next: (datos) => {
+          this.multas = datos;
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('Error al cargar las multas:', error);
+        }
+      });
+    },
+    error: (error) => {
+      console.error('No se eliminó la multa:', error);
+      alert('No se pudo eliminar la multa');
+    }
+  });
+}
 }

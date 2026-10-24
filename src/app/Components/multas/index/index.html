@@ -32,13 +32,13 @@
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-primary me-2"
-                  (click)="editarMulta(multa.prestamoId)">
+                  (click)="editarMulta(multa.prestamoId,multa.pagoRealizado)">
                   Editar
                 </button>
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-danger"
-                  (click)="eliminarMulta()">
+                  (click)="eliminarMulta(multa.prestamoId)">
                   Eliminar
                 </button>
               </td>

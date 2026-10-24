@@ -41,6 +41,8 @@ cargandoPrestamos=true;
         prestamoId:undefined,
         pagoRealizado:false
       }
+      alert("Multa Creada");
+      this.Volver();
     },
       error: (error) => {
         if (error.status === 409) {
