@@ -1,13 +1,15 @@
 <div class="container mt-4">
     <h2 class="text-primary">Editar Multa</h2>
     @if (multaeditada; as multa) {
+
     <form  class="card p-4 shadow-sm">
         <div  class="text-danger"></div>
         <div class="row">
+            @if(prestamo;as prest){
             <div class="col-md-6 mb-3">
-                <label  class="form-label">Préstamo- {{multa.id}}</label>
+                <label  class="form-label">Préstamo- {{prest.socio}} </label>
                 <span  class="text-danger"></span>
-            </div>
+            </div>}
             <div class="campo-multa campo-monto">
                 <label for="monto">Monto</label>
                 <input
