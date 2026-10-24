@@ -1,14 +1,15 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Index } from './Components/multas/index';
-import { Create } from './Components/multas/create/create';
+import { NavbarComponent } from './Components/shared/navbar/navbar';
+import { FooterComponent } from './Components/shared/footer/footer';
 
 @Component({
-  imports: [RouterOutlet, Index,Create],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('Proyecto-Diseno-Web-2');
+export class AppComponent {
+  title = 'TarijaReadApp';
 }
