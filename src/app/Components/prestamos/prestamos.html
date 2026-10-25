@@ -1,0 +1,169 @@
+
+<div class="page-heading">
+  <div>
+    <h2>Préstamos</h2>
+    <p>Administra los préstamos y las devoluciones de libros.</p>
+  </div>
+
+  <button class="btn-primary" (click)="nuevoPrestamo()">
+    + Nuevo préstamo
+  </button>
+</div>
+
+@if (mostrarFormulario) {
+  <section class="form-card">
+    <div class="form-heading">
+      <div>
+        <h3>Registrar nuevo préstamo</h3>
+        <p>Completa los datos para agregar un préstamo.</p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Cerrar formulario"
+        (click)="cancelarPrestamo()">
+        ×
+      </button>
+    </div>
+
+    <form #formulario="ngForm" (ngSubmit)="guardarPrestamo()">
+      <div class="form-grid">
+        <label>
+          Nombre del usuario *
+          <input
+            type="text"
+            name="usuario"
+            [(ngModel)]="nuevo.usuario"
+            placeholder="Ej. Juan Pérez"
+            required
+            maxlength="100">
+        </label>
+
+        <label>
+          Título del libro *
+          <input
+            type="text"
+            name="libro"
+            [(ngModel)]="nuevo.libro"
+            placeholder="Ej. El principito"
+            required
+            maxlength="150">
+        </label>
+
+        <label>
+          Fecha del préstamo *
+          <input
+            type="date"
+            name="fechaPrestamo"
+            [(ngModel)]="nuevo.fechaPrestamo"
+            required>
+        </label>
+
+        <label>
+          Fecha de devolución *
+          <input
+            type="date"
+            name="fechaDevolucion"
+            [(ngModel)]="nuevo.fechaDevolucion"
+            [min]="nuevo.fechaPrestamo"
+            required>
+        </label>
+      </div>
+
+      @if (mensaje) {
+        <p class="form-error" role="alert">{{ mensaje }}</p>
+      }
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="cancelarPrestamo()">
+          Cancelar
+        </button>
+
+        <button type="submit" class="btn-primary">
+          Guardar préstamo
+        </button>
+      </div>
+    </form>
+  </section>
+}
+
+<div class="stats-grid">
+  <article class="stat-card">
+    <span class="stat-label">Total de préstamos</span>
+    <strong>{{ prestamos.length }}</strong>
+    <span class="stat-note">Registros cargados</span>
+  </article>
+
+  <article class="stat-card">
+    <span class="stat-label">Activos</span>
+    <strong>{{ contarActivos() }}</strong>
+    <span class="stat-note">Préstamos en curso</span>
+  </article>
+
+  <article class="stat-card">
+    <span class="stat-label">Vencidos</span>
+    <strong>{{ contarVencidos() }}</strong>
+    <span class="stat-note">Requieren seguimiento</span>
+  </article>
+</div>
+
+<section class="table-card">
+  <div class="table-heading">
+    <div>
+      <h3>Listado de préstamos</h3>
+      <p>Consulta y gestiona los registros de la biblioteca.</p>
+    </div>
+
+    <input
+      type="search"
+      placeholder="Buscar préstamo..."
+      [(ngModel)]="busqueda"
+      aria-label="Buscar préstamo">
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Libro</th>
+          <th>Fecha préstamo</th>
+          <th>Fecha devolución</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (prestamo of prestamosFiltrados(); track prestamo.id) {
+          <tr>
+            <td>#{{ prestamo.id }}</td>
+            <td>{{ prestamo.usuario }}</td>
+            <td>{{ prestamo.libro }}</td>
+            <td>{{ prestamo.fechaPrestamo }}</td>
+            <td>{{ prestamo.fechaDevolucion }}</td>
+            <td>
+              <span
+                class="status"
+                [class.active-status]="prestamo.estado === 'Activo'"
+                [class.returned-status]="prestamo.estado === 'Devuelto'"
+                [class.overdue-status]="prestamo.estado === 'Vencido'">
+                {{ prestamo.estado }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="empty-state">
+              No hay préstamos para mostrar.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
