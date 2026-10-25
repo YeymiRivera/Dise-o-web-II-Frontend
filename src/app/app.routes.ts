@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home';
 import { Create } from './Components/multas/create/create';
@@ -10,5 +11,17 @@ export const routes: Routes = [
   { path: 'multas/index', component: Index },
   { path: 'multas/create', component: Create },
   { path: 'multas/editar/:id', component: Editar },
+
+  {
+    path: 'prestamos',
+    loadComponent: () =>
+      import('./Components/prestamos/prestamos').then(m => m.Prestamos)
+  },
+  {
+    path: 'reportes',
+    loadComponent: () =>
+      import('./Components/reportes/reportes').then(m => m.Reportes)
+  },
+
   { path: '**', redirectTo: '' }
 ];

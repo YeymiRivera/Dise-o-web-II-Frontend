@@ -1,0 +1,172 @@
+
+<div class="reportes-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">TARIJA READ APP</span>
+      <h1>Reportes y estadísticas</h1>
+      <p>Consulta el movimiento y el estado de los préstamos de la biblioteca.</p>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-outline" (click)="imprimirReporte()">
+        <span>⎙</span> Imprimir / PDF
+      </button>
+      <button class="btn btn-primary" (click)="exportarCSV()">
+        <span>↓</span> Exportar CSV
+      </button>
+    </div>
+  </header>
+
+  <section class="filters card">
+    <div class="filter-heading">
+      <div>
+        <h2>Filtros del reporte</h2>
+        <p>Personaliza los resultados que deseas consultar.</p>
+      </div>
+      <button class="btn btn-text" (click)="limpiarFiltros()">
+        Limpiar filtros
+      </button>
+    </div>
+
+    <div class="filter-grid">
+      <label>
+        Fecha de inicio
+        <input type="date" [(ngModel)]="fechaInicio">
+      </label>
+
+      <label>
+        Fecha de fin
+        <input type="date" [(ngModel)]="fechaFin">
+      </label>
+
+      <label>
+        Estado del préstamo
+        <select [(ngModel)]="estadoSeleccionado">
+          <option value="todos">Todos los estados</option>
+          <option value="Devuelto">Devueltos</option>
+          <option value="Pendiente">Pendientes</option>
+          <option value="Atrasado">Atrasados</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <article class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon blue">▤</span>
+        <span class="stat-label">Total de préstamos</span>
+      </div>
+      <strong>{{ totalPrestamos }}</strong>
+      <p>Registros según los filtros</p>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon green">✓</span>
+        <span class="stat-label">Devueltos</span>
+      </div>
+      <strong>{{ totalDevueltos }}</strong>
+      <p>Préstamos completados</p>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon orange">◷</span>
+        <span class="stat-label">Pendientes</span>
+      </div>
+      <strong>{{ totalPendientes }}</strong>
+      <p>Préstamos sin devolución</p>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-top">
+        <span class="stat-icon red">!</span>
+        <span class="stat-label">Atrasados</span>
+      </div>
+      <strong>{{ totalAtrasados }}</strong>
+      <p>Requieren seguimiento</p>
+    </article>
+  </section>
+
+  <section class="charts-grid">
+    <article class="card chart-card">
+      <div class="card-heading">
+        <div>
+          <h2>Préstamos por mes</h2>
+          <p>Distribución mensual de ejemplo</p>
+        </div>
+        <span class="chart-badge">Anual</span>
+      </div>
+      <div class="chart-container">
+        <canvas #graficoMensual></canvas>
+      </div>
+    </article>
+
+    <article class="card chart-card">
+      <div class="card-heading">
+        <div>
+          <h2>Estado de los préstamos</h2>
+          <p>Distribución de los registros de ejemplo</p>
+        </div>
+      </div>
+      <div class="chart-container doughnut-container">
+        <canvas #graficoEstados></canvas>
+      </div>
+    </article>
+  </section>
+
+  <section class="card table-card">
+    <div class="card-heading table-heading">
+      <div>
+        <h2>Detalle de préstamos</h2>
+        <p>Listado de registros que coinciden con tus filtros.</p>
+      </div>
+      <span class="results-count">
+        {{ prestamosFiltrados.length }} registros
+      </span>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>LIBRO</th>
+            <th>USUARIO</th>
+            <th>FECHA</th>
+            <th>ESTADO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prestamo of prestamosFiltrados">
+            <td>#{{ prestamo.id }}</td>
+            <td class="book-name">{{ prestamo.libro }}</td>
+            <td>{{ prestamo.usuario }}</td>
+            <td>{{ prestamo.fecha }}</td>
+            <td>
+              <span
+                class="status"
+                [class.status-returned]="prestamo.estado === 'Devuelto'"
+                [class.status-pending]="prestamo.estado === 'Pendiente'"
+                [class.status-late]="prestamo.estado === 'Atrasado'">
+                {{ prestamo.estado }}
+              </span>
+            </td>
+          </tr>
+
+          <tr *ngIf="prestamosFiltrados.length === 0">
+            <td colspan="5" class="empty-state">
+              No se encontraron préstamos para los filtros seleccionados.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="report-footer">
+    <span>Tarija Read App · Módulo de Reportes</span>
+    <span>Datos de demostración</span>
+  </footer>
+</div>
