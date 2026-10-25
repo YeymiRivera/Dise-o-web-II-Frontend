@@ -1,15 +1,10 @@
 import { Prestamo } from './Prestamo';
-
-export enum RolUsuario {
-  OperadorDeAtencion = 0,
-  Admin = 1
-}
-
+import{RolUsuario} from './RolUsuario';
 export interface Usuario {
-  id: number;
-  nombre: string;
-  email: string;
-  passwordHash: string;
-  rol: RolUsuario;
+  id?: number;
+  nombre?: string;
+  email?: string;
+  passwordHash?: string;
+  rol?: RolUsuario;
   prestamos?: Prestamo[];
 }
