@@ -1,0 +1,8 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+h1 {
+  letter-spacing: -0.5px;
+}

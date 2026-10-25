@@ -1,7 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="text-primary">Multas</h2>
-
     <button
       type="button"
       class="btn btn-primary"
@@ -9,7 +8,6 @@
       + Nueva Multa
     </button>
   </div>
-
   <div class="table-responsive">
     <table class="table table-striped shadow-sm">
       <thead class="table-dark">
@@ -23,8 +21,7 @@
       </thead>
 
       <tbody>
-        @if (multas | async; as listaMultas) {
-          @for (multa of listaMultas; track multa.id) {
+          @for (multa of multas; track multa.id) {
             <tr>
               <td>{{ multa.prestamo?.id ?? multa.prestamoId }}</td>
               <td>{{ multa.prestamo?.socio?.nombre ?? 'Sin socio' }}</td>
@@ -35,14 +32,13 @@
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-primary me-2"
-                  (click)="editarMulta(multa.id)">
+                  (click)="editarMulta(multa.prestamoId,multa.pagoRealizado)">
                   Editar
                 </button>
-
                 <button
                   type="button"
                   class="btn btn-sm btn-outline-danger"
-                  (click)="eliminarMulta(multa.id)">
+                  (click)="eliminarMulta(multa.prestamoId)">
                   Eliminar
                 </button>
               </td>
@@ -54,13 +50,6 @@
               </td>
             </tr>
           }
-        } @else {
-          <tr>
-            <td colspan="5" class="text-center">
-              Cargando multas...
-            </td>
-          </tr>
-        }
       </tbody>
     </table>
   </div>
