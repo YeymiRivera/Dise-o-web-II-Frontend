@@ -60,6 +60,37 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./Components/ejemplares/ejemplares-form/ejemplares-form').then(m => m.EjemplaresForm)
   },
+  {
+    path: 'libros',
+    loadComponent: () =>
+      import('./Components/libros/libros-index/libros-index').then(m => m.LibrosIndex)
+  },
+  {
+    path: 'libros/create',
+    loadComponent: () =>
+      import('./Components/libros/libros-form/libros-form').then(m => m.LibrosForm)
+  },
+  {
+    path: 'libros/editar/:id',
+    loadComponent: () =>
+      import('./Components/libros/libros-form/libros-form').then(m => m.LibrosForm)
+  },
+
+  {
+    path: 'socios',
+    loadComponent: () =>
+      import('./Components/socios/socios-index/socios-index').then(m => m.SociosIndex)
+  },
+  {
+    path: 'socios/create',
+    loadComponent: () =>
+      import('./Components/socios/socios-form/socios-form').then(m => m.SociosForm)
+  },
+  {
+    path: 'socios/editar/:id',
+    loadComponent: () =>
+      import('./Components/socios/socios-form/socios-form').then(m => m.SociosForm)
+  },
 
   { path: '**', redirectTo: '' }
 ];
