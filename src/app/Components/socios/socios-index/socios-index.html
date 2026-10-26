@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">Socios</h2>
+    <a routerLink="/socios/create" class="btn btn-primary">+ Nuevo Socio</a>
+  </div>
+
+  @if (error(); as mensaje) {
+    <div class="alert alert-danger">{{ mensaje }}</div>
+  }
+
+  <div class="table-responsive">
+    <table class="table table-striped shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>CI</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (cargando()) {
+          <tr>
+            <td colspan="5" class="text-center">Cargando socios...</td>
+          </tr>
+        } @else {
+          @for (socio of socios(); track socio.id) {
+            <tr>
+              <td>{{ socio.nombre }}</td>
+              <td>{{ socio.ci }}</td>
+              <td>{{ socio.email || '-' }}</td>
+              <td>{{ socio.telefono || '-' }}</td>
+              <td class="text-end">
+                <a [routerLink]="['/socios/editar', socio.id]" class="btn btn-sm btn-outline-primary me-2">Editar</a>
+                <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminar(socio)">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="text-center">No hay socios registrados.</td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
