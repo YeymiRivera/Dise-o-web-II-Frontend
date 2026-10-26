@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <h2 class="text-primary">{{ id() === null ? 'Nueva Categoría' : 'Editar Categoría' }}</h2>
+
+  <form (ngSubmit)="guardar()" class="card p-4 shadow-sm">
+    @if (error(); as mensaje) {
+      <div class="alert alert-danger">{{ mensaje }}</div>
+    }
+
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input
+        id="nombre"
+        name="nombre"
+        type="text"
+        class="form-control"
+        maxlength="50"
+        required
+        [(ngModel)]="nombre"
+      />
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <a routerLink="/categorias" class="btn btn-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-success" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -26,5 +26,40 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./Components/reportes/reportes').then(m => m.Reportes)
   },
+
+      // ----- Categorías -----
+  {
+    path: 'categorias',
+    loadComponent: () =>
+      import('./Components/categorias/categorias-index/categorias-index').then(m => m.CategoriasIndex)
+  },
+  {
+    path: 'categorias/create',
+    loadComponent: () =>
+      import('./Components/categorias/categorias-form/categorias-form').then(m => m.CategoriasForm)
+  },
+  {
+    path: 'categorias/editar/:id',
+    loadComponent: () =>
+      import('./Components/categorias/categorias-form/categorias-form').then(m => m.CategoriasForm)
+  },
+
+  // ----- Ejemplares -----
+  {
+    path: 'ejemplares',
+    loadComponent: () =>
+      import('./Components/ejemplares/ejemplares-index/ejemplares-index').then(m => m.EjemplaresIndex)
+  },
+  {
+    path: 'ejemplares/create',
+    loadComponent: () =>
+      import('./Components/ejemplares/ejemplares-form/ejemplares-form').then(m => m.EjemplaresForm)
+  },
+  {
+    path: 'ejemplares/editar/:id',
+    loadComponent: () =>
+      import('./Components/ejemplares/ejemplares-form/ejemplares-form').then(m => m.EjemplaresForm)
+  },
+
   { path: '**', redirectTo: '' }
 ];
