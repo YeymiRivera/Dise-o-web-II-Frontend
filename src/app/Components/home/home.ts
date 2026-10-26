@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     { titulo: 'Préstamos', descripcion: 'Registro de salidas y devoluciones', ruta: '/prestamos' },
     { titulo: 'Multas', descripcion: 'Penalizaciones por demora', ruta: '/multas/index' }, 
     { titulo: 'Reportes', descripcion: 'Estadísticas e informes del sistema', ruta: '/reportes' },
-    { titulo: 'Usuarios', descripcion: 'Personal administrativo y bibliotecarios', ruta: '/usuarios' }
+    { titulo: 'Usuarios', descripcion: 'Personal administrativo y bibliotecarios', ruta: '/usuarios/userindex' }
   ];
 
   constructor(private apiService: ApiService) {}

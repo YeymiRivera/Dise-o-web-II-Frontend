@@ -24,7 +24,6 @@ export class Create  {
 prestamos:Prestamo[]=[];
 cargandoPrestamos=true;
   nuevamulta: Multa = {
-  
     monto: undefined,
     pagoRealizado: false,
     prestamoId: undefined,
