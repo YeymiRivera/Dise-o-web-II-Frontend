@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h2 class="text-primary">{{ id() === null ? 'Registrar Nuevo Ejemplar' : 'Editar Ejemplar' }}</h2>
+
+  <form (ngSubmit)="guardar()" class="card p-4 shadow-sm">
+    @if (error(); as mensaje) {
+      <div class="alert alert-danger">{{ mensaje }}</div>
+    }
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="codigo" class="form-label">Código</label>
+        <input
+          id="codigo"
+          name="codigo"
+          type="text"
+          class="form-control"
+          placeholder="Ej: LIB-0001"
+          maxlength="30"
+          required
+          [(ngModel)]="codigo"
+        />
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="estado" class="form-label">Estado</label>
+        <select id="estado" name="estado" class="form-control" [(ngModel)]="estado">
+          @for (opcion of estados; track opcion.valor) {
+            <option [ngValue]="opcion.valor">{{ opcion.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label for="libroId" class="form-label">Libro</label>
+        <select id="libroId" name="libroId" class="form-control" required [(ngModel)]="libroId">
+          <option [ngValue]="null">-- Seleccione --</option>
+          @for (libro of libros(); track libro.id) {
+            <option [ngValue]="libro.id">{{ libro.titulo }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <a routerLink="/ejemplares" class="btn btn-secondary">Volver</a>
+      <button type="submit" class="btn btn-success" [disabled]="guardando()">
+        {{ guardando() ? 'Guardando...' : 'Guardar Registro' }}
+      </button>
+    </div>
+  </form>
+</div>
